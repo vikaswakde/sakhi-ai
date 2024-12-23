@@ -4,7 +4,6 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import FileUpload from "@/components/FileUpload";
-import { useAuth } from "@clerk/nextjs";
 
 export default async function Home() {
   const { userId } = await auth();
