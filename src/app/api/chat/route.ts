@@ -9,7 +9,7 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { getContext } from "@/lib/context";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -48,15 +48,15 @@ export async function POST(req: Request) {
       .map((msg: Message) => msg.content)
       .slice(-1);
 
-    console.log("this is userMessage", userMessage);
+    // console.log("this is userMessage", userMessage);
 
     const chatHistory = [prompt, ...userMessage].join("\n");
 
-    console.log("this is chatHistoy", chatHistory);
+    // console.log("this is chatHistoy", chatHistory);
 
     const result = await model.generateContentStream(chatHistory);
 
-    console.log("this is result", result);
+    // console.log("this is result", result);
 
     // Create a ReadableStream for the response
     const stream = new ReadableStream({
