@@ -12,7 +12,6 @@ import md5 from "md5";
 import { convertToAscii } from "./utils";
 
 export const getPineconeClient = () => {
-  // @ts-ignore now we dont need to specify envirnoment
   return new Pinecone({
     apiKey: process.env.PINECONE_API_KEY!,
   });

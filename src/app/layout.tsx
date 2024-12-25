@@ -31,7 +31,7 @@ export default function RootLayout({
       <Providers>
         <html lang="en">
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased scrollbar-hide`}
           >
             {children}
             <Toaster />
