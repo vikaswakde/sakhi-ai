@@ -44,12 +44,7 @@ const FileUpload = () => {
       try {
         setUploading(true);
         const data = await uploadToS3(file);
-        console.log("data", data);
-        if (!data?.file_key || !data.file_name) {
-          toast.error("Something went wrong");
-          return;
-        }
-        mutate(data, {
+        mutate(data as { file_key: string; file_name: string }, {
           onSuccess: ({ chat_id }) => {
             toast.success("Chat created!");
             router.push(`/chat/${chat_id}`);
