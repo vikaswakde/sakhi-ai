@@ -45,6 +45,6 @@ export async function getContext(query: string, fileKey: string) {
 
   let docs = qualifyingDocs.map((match) => (match.metadata as Metadata).text);
   // 5 vectors
-  console.log("this are docs", docs);
+  console.log("this are docs", docs.join("\n").substring(0, 3000));
   return docs.join("\n").substring(0, 3000);
 }

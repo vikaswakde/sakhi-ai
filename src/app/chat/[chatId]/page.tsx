@@ -30,19 +30,24 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
 
   return (
-    <div className="flex min-h-screen overflow-scroll scrollbar-hide">
-      <div className="flex w-full max-h-screen overflow-scroll scrollbar-hide">
-        {/* chat sidebar */}
-        <div className="flex-[1] max-w-xs ">
+    <div className="flex min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
+      <div className="flex w-full max-h-screen">
+        {/* Chat Sidebar - Refined width and styling */}
+        <div className="w-80 bg-gray-900 border-r border-gray-800">
           <ChatSideBar chatId={parseInt(chatId)} chats={_chats} />
         </div>
-        {/* pdf viewer */}
-        <div className="max-h-screen p-4 overflow-scroll flex-[5] scrollbar-hide">
-          <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
-        </div>
-        {/* chat component */}
-        <div className="flex-[3] border-l-slate-200 scrollbar-hide">
-          <ChatComponent chatId={parseInt(chatId)} />
+
+        {/* Main Content Area */}
+        <div className="flex flex-1">
+          {/* Chat Component - Improved layout */}
+          <div className="flex-1 max-h-screen">
+            <ChatComponent chatId={parseInt(chatId)} />
+          </div>
+
+          {/* PDF Viewer - Better integration */}
+          <div className="w-[35%] border-l border-gray-800 bg-gray-900">
+            <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
+          </div>
         </div>
       </div>
     </div>
