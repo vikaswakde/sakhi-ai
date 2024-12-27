@@ -33,7 +33,7 @@ export async function getContext(query: string, fileKey: string) {
   // console.log("this are matches", matches); // [works]
 
   const qualifyingDocs = matches.filter(
-    (match) => match.score && match.score > 0.3
+    (match) => match.score && match.score > 0.4
   );
 
   // console.log("this are qualifyingDocs", qualifyingDocs); // [fails] for 0.7 but will work for 0.5
