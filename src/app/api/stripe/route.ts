@@ -1,3 +1,18 @@
+/**
+ * Stripe API route handler for managing subscriptions
+ * @route GET /api/stripe
+ * @description Handles subscription creation and management through Stripe
+ * - For new users: Creates a new Stripe checkout session
+ * - For existing subscribers: Creates a billing portal session
+ * @returns {Promise<NextResponse>} JSON response with Stripe session URL or error message
+ * @throws {NextResponse} 401 if user is unauthorized
+ * @throws {NextResponse} 500 if there's an internal server error
+ * @export
+ * @dynamic 'force-dynamic' - Required for handling dynamic headers and Stripe sessions
+ */
+
+// Add this export configuration at the end of your file
+export const dynamic = "force-dynamic";
 import { db } from "@/lib/db";
 import { userSubscriptions } from "@/lib/db/schema";
 import { stripe } from "@/lib/stripe";
