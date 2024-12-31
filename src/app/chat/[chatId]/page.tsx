@@ -3,6 +3,7 @@ import ChatSideBar from "@/components/ChatSideBar";
 import PDFViewer from "@/components/PDFViewer";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
+import { checkSubscription } from "@/lib/subscription";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
@@ -29,12 +30,14 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
 
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
 
+  const isPro = await checkSubscription();
+
   return (
     <div className="flex min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="flex w-full max-h-screen">
         {/* Chat Sidebar - Refined width and styling */}
         <div className="w-80 bg-gray-900 border-r border-gray-800">
-          <ChatSideBar chatId={parseInt(chatId)} chats={_chats} />
+          <ChatSideBar chatId={parseInt(chatId)} chats={_chats} isPro={isPro} />
         </div>
 
         {/* Main Content Area */}

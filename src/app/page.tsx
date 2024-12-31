@@ -8,10 +8,13 @@ import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { ArrowRightIcon, LogInIcon } from "lucide-react";
 import { eq } from "drizzle-orm";
+import SubscriptionButton from "@/components/SubscriptionButton";
+import { checkSubscription } from "@/lib/subscription";
 
 export default async function Home() {
   const { userId } = await auth();
   const isAuth = !!userId;
+  const isPro = await checkSubscription();
   let firstChat;
   if (userId) {
     firstChat = await db.select().from(chats).where(eq(chats.userId, userId));
@@ -35,7 +38,9 @@ export default async function Home() {
                   Go to Chats <ArrowRightIcon className="ml-2" />
                 </Button>
               </Link>
-              <div className="">Subscription Button</div>
+              <div className="ml-3">
+                <SubscriptionButton isPro={isPro} />
+              </div>
             </>
           )}
         </div>

@@ -30,3 +30,16 @@ export const messages = pgTable("messages", {
   content: text("content").notNull(),
   role: userSystemEnum("role").notNull(),
 });
+
+export const userSubscriptions = pgTable("user_subscriptions", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id", { length: 256 }).notNull().unique(),
+  stripeCustomerId: varchar("stripe_customer_id", { length: 256 })
+    .notNull()
+    .unique(),
+  stripeSubscriptionId: varchar("stripe_subscription_id", {
+    length: 256,
+  }),
+  stripePriceId: varchar("stripe_price_id", { length: 256 }),
+  stripeCurrentPeriodEnd: timestamp("stripe_current_period_ended_at"),
+});

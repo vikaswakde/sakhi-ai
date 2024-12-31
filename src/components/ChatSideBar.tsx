@@ -5,16 +5,15 @@ import { Button } from "./ui/button";
 import { MessageCircleIcon, PlusCircleIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import SubscriptionButton from "./SubscriptionButton";
 
 type Props = {
   chats: DrizzleChat[];
   chatId: number;
-  //   isPro?
+  isPro: boolean;
 };
 
-const ChatSideBar = ({ chatId, chats }: Props) => {
-  //   const [loading, setIsLoading] = useState(false);
-
+const ChatSideBar = ({ chatId, chats, isPro }: Props) => {
   return (
     <div className="flex flex-col h-screen p-4">
       {/* New Chat Button */}
@@ -51,6 +50,9 @@ const ChatSideBar = ({ chatId, chats }: Props) => {
           ))}
         </div>
       </ScrollArea>
+      <div>
+        <SubscriptionButton isPro={isPro} />
+      </div>
     </div>
   );
 };
