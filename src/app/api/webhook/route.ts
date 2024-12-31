@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   const signature = headers().get("Stripe-Signature") as string;
   // console.log("this is what import stripe looks like", Stripe);
 
-  let event: Stripe.Event | undefined;
+  let event: Stripe.Event;
   // console.log("this is what import stripe event looks like", event);
 
   try {
