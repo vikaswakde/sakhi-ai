@@ -26,6 +26,7 @@ export default async function Home() {
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 border relative">
       <nav>This is nav section</nav>
+      <section>This is hero section</section>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
           <h1>Upload PDF & Talk to it through Mitra</h1>
