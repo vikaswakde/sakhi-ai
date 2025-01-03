@@ -104,7 +104,7 @@ export default async function Home() {
                 )}
                 {firstChat && (
                   <Link href={`chat/${firstChat.id}`}>
-                    <Button className="w-full bg-blue-600/40 hover:bg-blue-700/40 mt-2 group" >
+                    <Button className="w-full bg-blue-600/40 hover:bg-blue-700/40 mt-2 group">
                       <span>Continue to Your Chats</span>
                       <ArrowRightIcon className="ml-2 h-5 w-5 hidden group-hover:block" />
                     </Button>
@@ -429,7 +429,7 @@ const footerLinks = [
     links: [
       { label: "About", href: "#" },
       { label: "Blog", href: "#" },
-      { label: "Careers", href: "#" },
+      { label: "Terms and Conditions", href: "/tnc" },
     ],
   },
   {
