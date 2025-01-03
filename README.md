@@ -29,7 +29,7 @@ SakhiAI is a modern web application that transforms PDF documents into interacti
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/sakhi-ai.git
+git clone https://github.com/vikaswakde/sakhi-ai.git
 ```
 
 2. Install dependencies:
