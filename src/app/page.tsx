@@ -88,9 +88,16 @@ export default async function Home() {
 
           {/* File Upload or Auth Section */}
           <div className="mx-auto max-w-lg">
-            {isAuth && firstChat ? (
+            {isAuth ? (
               <div className="space-y-4">
-                <FileUpload />
+                {!firstChat || isPro ? (
+                  <FileUpload />
+                ) : (
+                  <div className="text-center p-4 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                    <p className="text-yellow-200 mb-4">You have reached the limit for free accounts. Please upgrade to Pro to upload more PDFs.</p>
+                    <SubscriptionButton isPro={isPro} />
+                  </div>
+                )}
                 {firstChat && (
                   <Link href={`chat/${firstChat.id}`}>
                     <Button className="w-full bg-blue-600 hover:bg-blue-700 mt-2">
