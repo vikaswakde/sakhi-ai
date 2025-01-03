@@ -52,6 +52,7 @@
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
     "react-hot-toast": "^2.4.1",
+    "react-markdown": "^9.0.1",
     "react-query": "^3.39.3",
     "sonner": "^1.7.1",
     "stream": "^0.0.2",
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.2.14",
+    "@tailwindcss/typography": "^0.5.15",
     "@tanstack/eslint-plugin-query": "^5.62.1",
     "@types/node": "^20",
     "@types/react": "^18",

@@ -54,7 +54,7 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
       </div>
 
       {/* PDF Viewer */}
-      <div className="hidden xl:block w-[35%] border-l border-gray-800 bg-gray-900">
+      <div className="hidden xl:block w-[20%] border-l border-gray-800 bg-gray-900">
         <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
       </div>
     </div>

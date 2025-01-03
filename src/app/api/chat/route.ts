@@ -8,6 +8,7 @@ import { StreamingTextResponse } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { getContext } from "@/lib/context";
+import { checkSubscription } from "@/lib/subscription";
 
 // export const runtime = "edge";
 
@@ -17,16 +18,30 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 export async function POST(req: Request) {
   try {
     const { messages, chatId } = await req.json();
+
+    // Check if messages length exceeds 10 and user is not subscribed
+    if (messages.length > 14) {
+      const isPro = await checkSubscription();
+      if (!isPro) {
+        const stream = new ReadableStream({
+          start(controller) {
+            const message =
+              "You have used your free trial. Please upgrade to pro and continue using the service. [Click here to upgrade](/api/stripe)";
+            controller.enqueue(message);
+            controller.close();
+          },
+        });
+        return new StreamingTextResponse(stream);
+      }
+    }
+
     const _chats = await db.select().from(chats).where(eq(chats.id, chatId));
     if (_chats.length != 1) {
       return NextResponse.json({ error: "chat not found" }, { status: 404 });
     }
     const fileKey = _chats[0].fileKey;
-    // console.log("this is fileKey", fileKey); // [works correctly]
     const lastMessage = messages[messages.length - 1];
-    // console.log("this is last message", lastMessage); // [works correctly]
     const context = await getContext(lastMessage.content, fileKey);
-    // console.log("this is context", context);
 
     const prompt = `You are an intelligent, a friendly and enthusiastic AI assistant assistant designed to help users interact seamlessly with information & who loves helping people understand documents. You have a warm, engaging personality and enjoy making learning fun.
 
@@ -56,8 +71,6 @@ export async function POST(req: Request) {
     // console.log("this is chatHistoy", chatHistory);
 
     const result = await model.generateContentStream(chatHistory);
-
-    // console.log("this is result", result);
 
     // Create a ReadableStream for the response
     const stream = new ReadableStream({

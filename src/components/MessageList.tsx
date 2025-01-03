@@ -3,6 +3,7 @@ import { useUser } from "@clerk/nextjs";
 import { Message } from "ai";
 import { BotIcon, Loader2Icon, UserIcon } from "lucide-react";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 type Props = {
   isLoading: boolean;
@@ -42,7 +43,7 @@ const MessageList = ({ isLoading, messages }: Props) => {
             key={message.id}
             className={cn("flex items-end gap-2", {
               "justify-end": isUser,
-              "justify-start max-w-[75%]": !isUser,
+              "justify-start lg:max-w-[85%]": !isUser,
             })}
           >
             {/* Avatar for assistant */}
@@ -62,20 +63,51 @@ const MessageList = ({ isLoading, messages }: Props) => {
                 "max-w-[85%] rounded-2xl px-4 py-2 text-sm shadow-md",
                 "transform transition-all duration-200",
                 {
-                  "bg-blue-600/20 text-white rounded-br-none": isUser,
-                  "bg-gray-800 text-gray-100 rounded-bl-none": !isUser,
+                  "bg-blue-600/20 text-white rounded-br-none border border-blue-600/10":
+                    isUser,
+                  "bg-gray-800 text-gray-100 rounded-bl-none prose prose-invert prose-sm border border-gray-700":
+                    !isUser,
                 }
               )}
             >
-              {message.content}
-              {!isUser && message.content === "" && (
-                <div className="flex items-center space-x-4">
-                  <div className="space-y-2">
-                    <div className="h-4 w-[250px] animate-pulse rounded bg-gray-700" />
-                    <div className="h-4 w-[200px] animate-pulse rounded bg-gray-700" />
-                    <div className="h-4 w-[150px] animate-pulse rounded bg-gray-700" />
-                  </div>
-                </div>
+              {isUser ? (
+                message.content
+              ) : (
+                <ReactMarkdown
+                  components={{
+                    // Style different markdown elements
+                    h1: ({ children }) => (
+                      <h1 className="text-xl font-bold mb-2">{children}</h1>
+                    ),
+                    h2: ({ children }) => (
+                      <h2 className="text-lg font-semibold mb-2">{children}</h2>
+                    ),
+                    h3: ({ children }) => (
+                      <h3 className="text-md font-medium mb-1">{children}</h3>
+                    ),
+                    ul: ({ children }) => (
+                      <ul className="list-disc ml-4 mb-2">{children}</ul>
+                    ),
+                    ol: ({ children }) => (
+                      <ol className="list-decimal ml-4 mb-2">{children}</ol>
+                    ),
+                    li: ({ children }) => <li className="mb-1">{children}</li>,
+                    p: ({ children }) => <p className="mb-2">{children}</p>,
+                    strong: ({ children }) => (
+                      <strong className="font-semibold">{children}</strong>
+                    ),
+                    em: ({ children }) => (
+                      <em className="italic">{children}</em>
+                    ),
+                    code: ({ children }) => (
+                      <code className="bg-gray-700 rounded px-1 py-0.5">
+                        {children}
+                      </code>
+                    ),
+                  }}
+                >
+                  {message.content}
+                </ReactMarkdown>
               )}
             </div>
 
