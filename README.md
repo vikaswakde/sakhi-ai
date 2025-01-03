@@ -111,7 +111,7 @@ This project is licensed under the MIT License
 
 ## 📧 Contact
 
-Vikas Wakde - [@yourtwitter](https://x.com/vikaswakde42)
+Vikas Wakde - [@vikaswakde42](https://x.com/vikaswakde42)
 
 Project Link: [https://github.com/vikaswakde/sakhi-ai](https://github.com/vikaswakde/sakhi-ai)
 
