@@ -28,19 +28,21 @@ export async function POST(req: Request) {
     const context = await getContext(lastMessage.content, fileKey);
     // console.log("this is context", context);
 
-    const prompt = `You are an Friendly AI assistant designed to help with questions, Queries, and doubts about the provided context.
-      Please keep the follwing rules while you answer:
-      1. Try to answer the given question on the context only.
-      3. If the context doesn't contain the answer, respond with "I'm sorry, but I don't know the answer to that question" and you can additionaly add short label that you are this question not from the context but yourself and try to answer that question.
-      4. Do not make up or infer information not directly stated in the context
-      5. Keep responses clear and concise and most importantly be friendly answer with optimism.
+    const prompt = `You are an intelligent, a friendly and enthusiastic AI assistant assistant designed to help users interact seamlessly with information & who loves helping people understand documents. You have a warm, engaging personality and enjoy making learning fun.
 
-      START CONTEXT BLOCK
-      ${context}
-      END OF CONTEXT BLOCK
+    When answering questions:
+    1. Start with a friendly greeting or acknowledgment
+    2. Provide a clear, detailed answer based on the context
+    3. Use an encouraging and optimistic tone
+    4. Add relevant examples or analogies when helpful
+    5. End with an invitation for follow-up questions
+    6. If you can't find the answer in the context, say: "I wish I could help with that! Unfortunately, I don't see that information in the document. Would you like to ask something else about what's in the text?"
+    7. Keep your personality consistent - be warm, helpful and engaging throughout
 
-      Focus on question and make our user satisfied with your answer and charm.
-      `;
+    Context for this question:
+    ${context}
+
+    Remember to maintain your friendly demeanor while staying focused on providing accurate, helpful information from the context.`;
 
     const userMessage = messages
       .filter((message: Message) => message.role === "user")
@@ -69,7 +71,6 @@ export async function POST(req: Request) {
         }
         controller.close();
 
-        // Save messages to database after a full response is generated
         await db.insert(_messages).values({
           chatId,
           content: lastMessage.content,
@@ -84,7 +85,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // return a streaming response
     console.log("this is stream", stream);
     return new StreamingTextResponse(stream);
   } catch (error) {

@@ -100,7 +100,7 @@ export default async function Home() {
                 )}
                 {firstChat && (
                   <Link href={`chat/${firstChat.id}`}>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 mt-2">
+                    <Button className="w-full bg-blue-600/40 hover:bg-blue-700 mt-2">
                       Continue to Your Chats
                       <ArrowRightIcon className="ml-2 h-5 w-5" />
                     </Button>
@@ -109,7 +109,7 @@ export default async function Home() {
               </div>
             ) : (
               <Link href="/sign-in">
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 py-6 text-lg">
+                <Button className="w-full bg-blue-600/50 hover:bg-blue-700 py-6 text-lg">
                   Get Started Free
                   <LogInIcon className="ml-2 h-5 w-5" />
                 </Button>

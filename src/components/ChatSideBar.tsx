@@ -37,7 +37,7 @@ const ChatSideBar = ({ chatId, chats, isPro }: Props) => {
                   "rounded-lg p-3 transition-all duration-200 ease-in-out",
                   "hover:bg-gray-800/60 group flex items-center mb-2",
                   {
-                    "bg-blue-600 text-white": chat.id === chatId,
+                    "bg-blue-600/30 text-white": chat.id === chatId,
                     "text-gray-300 hover:text-white border border-gray-600":
                       chat.id !== chatId,
                   }

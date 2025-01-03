@@ -20,6 +20,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Sakhi  AI",
   description: "Your AI Friend to help you with your Questions. ",
+  icons: {
+    icon: "/ai-logo-no-bg.png"
+  }
 };
 
 export default function RootLayout({
