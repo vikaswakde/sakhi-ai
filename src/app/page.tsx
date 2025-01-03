@@ -19,6 +19,7 @@ import {
   BarChart,
   Clock,
   Users,
+  Loader2,
 } from "lucide-react";
 import { eq } from "drizzle-orm";
 import SubscriptionButton from "@/components/SubscriptionButton";
@@ -94,15 +95,18 @@ export default async function Home() {
                   <FileUpload />
                 ) : (
                   <div className="text-center p-4 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
-                    <p className="text-yellow-200 mb-4">You have reached the limit for free accounts. Please upgrade to Pro to upload more PDFs.</p>
+                    <p className="text-yellow-200 mb-4">
+                      You have reached the limit for free accounts. Please
+                      upgrade to Pro to upload more PDFs.
+                    </p>
                     <SubscriptionButton isPro={isPro} />
                   </div>
                 )}
                 {firstChat && (
                   <Link href={`chat/${firstChat.id}`}>
-                    <Button className="w-full bg-blue-600/40 hover:bg-blue-700 mt-2">
-                      Continue to Your Chats
-                      <ArrowRightIcon className="ml-2 h-5 w-5" />
+                    <Button className="w-full bg-blue-600/40 hover:bg-blue-700/40 mt-2 group" >
+                      <span>Continue to Your Chats</span>
+                      <ArrowRightIcon className="ml-2 h-5 w-5 hidden group-hover:block" />
                     </Button>
                   </Link>
                 )}
@@ -390,21 +394,24 @@ const testimonials = [
       "SakhiAI is out of this world! Almost as impressive as my Mars rockets. Though I might need it to help me understand those Twitter terms of service I agreed to...",
     name: "Elon Musk",
     role: "CEO of Tesla, SpaceX, & Twitter/X",
-    avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg",
+    avatar:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg",
   },
   {
     content:
       "Finally! An AI that can explain my metaverse presentations to me. Now if only it could help me figure out how many zeroes are in our AI investment budget.",
     name: "Mark Zuckerberg",
     role: "CEO of Meta",
-    avatar: "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
+    avatar:
+      "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
   },
   {
     content:
       "I asked SakhiAI to analyze my competitor's business strategies. It just replied 'Buy them all.' Best advice ever!",
     name: "Satya Nadella",
     role: "CEO of Microsoft",
-    avatar: "https://upload.wikimedia.org/wikipedia/commons/1/19/Satya_Nadella_in_2017.jpg",
+    avatar:
+      "https://upload.wikimedia.org/wikipedia/commons/7/78/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg",
   },
 ];
 
