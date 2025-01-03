@@ -14,7 +14,7 @@ export async function getMatchesFromEmbeddings(
     const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
     // console.log("this is namespace", namespace); // [works]
     const queryResult = await namespace.query({
-      topK: 5,
+      topK: 7,
       vector: embeddings,
       // includeValues: true,
       includeMetadata: true,
@@ -33,10 +33,10 @@ export async function getContext(query: string, fileKey: string) {
   // console.log("this are matches", matches); // [works]
 
   const qualifyingDocs = matches.filter(
-    (match) => match.score && match.score > 0.4
+    (match) => match.score && match.score > 0.3
   );
 
-  // console.log("this are qualifyingDocs", qualifyingDocs); // [fails] for 0.7 but will work for 0.5
+  // console.log("this are qualifyingDocs", qualifyingDocs); // [fails] for 0.7 but will work for 0.3
 
   type Metadata = {
     text: string;
