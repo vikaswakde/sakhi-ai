@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Sakhi  AI",
-  description: "Your AI Friend to help you with ",
+  title: "Mitra  AI",
+  description: "Your AI Friend to help you with your Questions. ",
 };
 
 export default function RootLayout({
