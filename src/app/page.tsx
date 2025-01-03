@@ -40,7 +40,7 @@ export default async function Home() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Bot className="h-8 w-8 text-blue-500" />
-            <span className="text-xl font-bold text-white">MitraAI</span>
+            <span className="text-xl font-bold text-white">SakhiAI</span>
           </Link>
           <div className="flex items-center gap-4">
             {isAuth ? (
@@ -77,7 +77,7 @@ export default async function Home() {
 
           <h1 className="mb-8 text-4xl font-bold tracking-tight text-white sm:text-6xl">
             Chat with your PDFs using{" "}
-            <span className="text-blue-500">MitraAI</span>
+            <span className="text-blue-500">SakhiAI</span>
           </h1>
 
           <p className="mb-12 text-lg text-gray-400 max-w-2xl mx-auto">
@@ -229,7 +229,7 @@ export default async function Home() {
             Ready to Transform Your Document Experience?
           </h2>
           <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who are already using MitraAI to
+            Join thousands of professionals who are already using SakhiAI to
             revolutionize their document interaction.
           </p>
           <Link href="/sign-up">
@@ -251,7 +251,7 @@ export default async function Home() {
             <div>
               <Link href="/" className="flex items-center gap-2 mb-4">
                 <Bot className="h-8 w-8 text-blue-500" />
-                <span className="text-xl font-bold text-white">MitraAI</span>
+                <span className="text-xl font-bold text-white">SakhiAI</span>
               </Link>
               <p className="text-gray-400">
                 Transform your PDF documents into interactive conversations
@@ -380,24 +380,24 @@ const steps = [
 const testimonials = [
   {
     content:
-      "MitraAI has revolutionized how I interact with research papers. It's like having a research assistant available 24/7.",
-    name: "Dr. Sarah Chen",
-    role: "Research Scientist",
-    avatar: "/avatars/avatar-1.jpg",
+      "SakhiAI is out of this world! Almost as impressive as my Mars rockets. Though I might need it to help me understand those Twitter terms of service I agreed to...",
+    name: "Elon Musk",
+    role: "CEO of Tesla, SpaceX, & Twitter/X",
+    avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg",
   },
   {
     content:
-      "The ability to quickly extract insights from lengthy documents has saved our team countless hours.",
-    name: "Michael Rodriguez",
-    role: "Product Manager",
-    avatar: "/avatars/avatar-2.jpg",
+      "Finally! An AI that can explain my metaverse presentations to me. Now if only it could help me figure out how many zeroes are in our AI investment budget.",
+    name: "Mark Zuckerberg",
+    role: "CEO of Meta",
+    avatar: "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
   },
   {
     content:
-      "As a student, this tool has been invaluable for understanding complex academic papers.",
-    name: "Emily Thompson",
-    role: "PhD Student",
-    avatar: "/avatars/avatar-3.jpg",
+      "I asked SakhiAI to analyze my competitor's business strategies. It just replied 'Buy them all.' Best advice ever!",
+    name: "Satya Nadella",
+    role: "CEO of Microsoft",
+    avatar: "https://upload.wikimedia.org/wikipedia/commons/1/19/Satya_Nadella_in_2017.jpg",
   },
 ];
 
