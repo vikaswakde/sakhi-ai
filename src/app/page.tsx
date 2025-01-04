@@ -52,12 +52,16 @@ export default async function Home() {
             ) : (
               <div className="flex gap-4">
                 <Link href="/sign-in">
-                  <Button variant="ghost" size="sm">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="bg-gray-100/10"
+                  >
                     Sign In
                   </Button>
                 </Link>
                 <Link href="/sign-up">
-                  <Button variant="default" size="sm">
+                  <Button variant="secondary" size="sm" className="bg-gray-200">
                     Get Started
                   </Button>
                 </Link>
