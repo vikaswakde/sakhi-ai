@@ -22,7 +22,7 @@ export const checkSubscription = async () => {
   const userSubscription = _userSubscriptions[0];
 
   const isValid =
-    userSubscription.stripePriceId &&
+    userSubscription.razorpaySubscriptionId &&
     //  If withGracePeriod > today, subscription is valid
     userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
       Date.now();
