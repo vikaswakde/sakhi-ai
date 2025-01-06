@@ -429,18 +429,18 @@ const footerLinks = [
     ],
   },
   {
+    title: "Legal",
+    links: [
+      { label: "Terms of Service", href: "/tnc" },
+      { label: "Privacy Policy", href: "/tnc" },
+      { label: "Refund Policy", href: "/tnc" },
+    ],
+  },
+  {
     title: "Company",
     links: [
       { label: "About", href: "#" },
       { label: "Blog", href: "#" },
-      { label: "Terms and Conditions", href: "/tnc" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "Documentation", href: "#" },
-      { label: "Help Center", href: "#" },
       { label: "Contact", href: "#" },
     ],
   },
