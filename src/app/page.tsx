@@ -431,9 +431,9 @@ const footerLinks = [
   {
     title: "Legal",
     links: [
-      { label: "Terms of Service", href: "/tnc" },
-      { label: "Privacy Policy", href: "/tnc" },
-      { label: "Refund Policy", href: "/tnc" },
+      { label: "Terms of Service", href: "/legal/terms" },
+      { label: "Privacy Policy", href: "/legal/privacy" },
+      { label: "Refund Policy", href: "/legal/refund" },
     ],
   },
   {
