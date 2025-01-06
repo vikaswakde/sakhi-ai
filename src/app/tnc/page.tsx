@@ -110,6 +110,26 @@ export default function TermsPage() {
                 Response time: Within 24 hours
               </p>
             </div>
+            <h3 className="text-xl text-white mt-6">
+              8. Shipping and Delivery
+            </h3>
+            <p className="text-gray-300">
+              - Digital products are delivered instantly after payment
+              <br />
+              - Access to your purchases is available in your account dashboard
+              <br />
+              - Download links are sent to your registered email
+              <br />- Support available 24/7 for download assistance
+            </p>
+
+            <h3 className="text-xl text-white mt-6">9. Contact Us</h3>
+            <p className="text-gray-300">
+              For general inquiries and support:
+              <br />
+              Email: contact@sakhiai.com
+              <br />
+              Office Hours: Monday-Friday, 9 AM - 6 PM EST
+            </p>
           </section>
 
           <div className="mt-8 text-center">

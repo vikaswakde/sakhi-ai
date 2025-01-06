@@ -440,8 +440,8 @@ const footerLinks = [
     title: "Company",
     links: [
       { label: "About", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Contact", href: "#" },
+      { label: "Shipping and Delivery", href: "/tnc" },
+      { label: "Contact Us", href: "/tnc" },
     ],
   },
 ];
