@@ -45,7 +45,7 @@ export default function TermsPage() {
                 <br />
                 - Pro subscription is billed monthly or annually
                 <br />
-                - Payments are processed securely through Stripe
+                - Payments are processed securely through RazorPay
                 <br />- Subscription can be cancelled at any time
               </p>
 

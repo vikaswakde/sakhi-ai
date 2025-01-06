@@ -5,7 +5,6 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
   "/",
   "/fallback",
-  "/api/webhook",
   "/tnc"
 ]);
 

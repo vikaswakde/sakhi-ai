@@ -22,7 +22,7 @@ SakhiAI is a modern web application that transforms PDF documents into interacti
 - **AI Integration**: Gooogle Gemini API
 - **File Storage**: AWS S3
 - **Styling**: Shadcn UI Components
-- **Payment**: Stripe Integration
+- **Payment**: RazorPay Integration
 
 ## 🛠️ Installation
 
@@ -67,12 +67,6 @@ PINECONE_INDEX_NAME=
 # LLMS
 GEMINI_API_KEY=
 
-# STRIPE
-
-STRIPE_PUBLISHABLE_KEY=
-STRIPE_API_KEY=
-WEBHOOK_SIGNING_SECRET=
-NEXT_BASE_URL=
 
 # RazorPay
 

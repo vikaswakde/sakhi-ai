@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         const stream = new ReadableStream({
           start(controller) {
             const message =
-              "You have used your free trial. Please upgrade to pro and continue using the service. [Click here to upgrade](/api/stripe)";
+              "You have used your free trial. Please upgrade to pro and continue using the service";
             controller.enqueue(message);
             controller.close();
           },
