@@ -77,9 +77,16 @@ const SubscriptionButton = (props: Props) => {
     }
   };
   return (
-    <Button disabled={loading} onClick={handleSubscription} variant="outline">
-      {props.isPro ? "Manage Subscription" : "Get Pro"}
-    </Button>
+    <div className=" inline-flex items-center rounded-full border border-violet-500/20 bg-violet-500/10 px-[5px] py-[2px] shadow-xl">
+      <Button
+        disabled={loading}
+        onClick={handleSubscription}
+        variant="outline"
+        className="rounded-full bg-white/60 text-purple-700 hover:bg-purple-100  shadow-lg"
+      >
+        {props.isPro ? "Manage Subscription" : "Get Pro"}
+      </Button>
+    </div>
   );
 };
 

@@ -25,6 +25,9 @@ import { eq } from "drizzle-orm";
 import SubscriptionButton from "@/components/SubscriptionButton";
 import { checkSubscription } from "@/lib/subscription";
 import Image from "next/image";
+import HowItWorks from "@/components/home/HowItWorks";
+import Hero from "@/components/home/Hero";
+import Pricing from "@/components/home/Pricing";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -35,28 +38,24 @@ export default async function Home() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full border-b border-gray-700 bg-gray-900/50 backdrop-blur-md z-50">
+      <nav className="fixed top-0 w-full border-b border-gray-300 bg-gray-100/50 backdrop-blur-md z-50">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Bot className="h-8 w-8 text-blue-500" />
-            <span className="text-xl font-bold text-white">SakhiAI</span>
+            <Bot className="h-8 w-8 text-violet-500 hover:rotate-12 transform transition duration-200 ease-in-out" />
+            <span className="text-xl font-bold text-gray-800">SakhiAI</span>
           </Link>
           <div className="flex items-center gap-4">
             {isAuth ? (
               <>
                 <SubscriptionButton isPro={isPro} />
-                <UserButton afterSwitchSessionUrl="/" />
+                <UserButton />
               </>
             ) : (
               <div className="flex gap-4">
                 <Link href="/sign-in">
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="bg-gray-100/10"
-                  >
+                  <Button variant="default" size="sm" className="bg-gray-600">
                     Sign In
                   </Button>
                 </Link>
@@ -72,34 +71,41 @@ export default async function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-32 pb-16">
+      <section className="container mx-auto px-4 pt-32 pb-16 min-h-[77vh]">
         <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-8 inline-flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1">
-            <span className="text-sm font-medium text-blue-400">
-              ✨ Your AI PDF Chat Assistant
-            </span>
+          <div className="mb-16 inline-flex items-center rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-2 shadow-xl">
+            <Link href="/sign-up">
+              <Button
+                size="lg"
+                className="bg-white/50 text-purple-700 hover:bg-purple-100 transition duration-300 ease-in-out rounded-full shadow-lg"
+              >
+                Start Your Free Trial
+                <Sparkles className="ml-2 h-5 w-5 animate-bounce ease-in-out transition transform opacity-70" />
+              </Button>
+            </Link>
           </div>
-
-          <h1 className="mb-8 text-4xl font-bold tracking-tight text-white sm:text-6xl">
-            Chat with your PDFs using{" "}
-            <span className="text-blue-500">SakhiAI</span>
+          <h1 className="mb-8 text-5xl font-extrabold tracking-tight leading-normal text-gray-800 sm:text-7xl">
+            Talk to your PDF's
+            <br />
+            <span className="text-4xl font-sans  pr-3">with</span>
+            <span className="text-violet-600 font-sans underline decoration-dashed underline-offset-8 ">
+              SakhiAI
+            </span>
           </h1>
-
-          <p className="mb-12 text-lg text-gray-400 max-w-2xl mx-auto">
-            Transform your PDF documents into interactive conversations. Get
-            instant answers, analyze content, and extract insights with our
-            advanced AI chat interface.
+          <p className="mb-12 text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
+            Dive into a world where your PDF documents come alive! <br /> With{" "}
+            <span className="text-violet-900  font-semibold">SakhiAI</span>,
+            every PDF is a gateway to new knowledge and understanding.
           </p>
-
           {/* File Upload or Auth Section */}
           <div className="mx-auto max-w-lg">
             {isAuth ? (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {!firstChat || isPro ? (
                   <FileUpload />
                 ) : (
-                  <div className="text-center p-4 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
-                    <p className="text-yellow-200 mb-4">
+                  <div className="text-center p-6 bg-yellow-100 rounded-lg border border-yellow-300 shadow-md">
+                    <p className="text-yellow-800 mb-4 font-medium">
                       You have reached the limit for free accounts. Please
                       upgrade to Pro to upload more PDFs.
                     </p>
@@ -108,7 +114,7 @@ export default async function Home() {
                 )}
                 {firstChat && (
                   <Link href={`chat/${firstChat.id}`}>
-                    <Button className="w-full bg-blue-600/40 hover:bg-blue-700/40 mt-2 group">
+                    <Button className="w-full bg-violet-600 hover:bg-violet-700 py-4 text-lg font-semibold transition duration-200 ease-in-out">
                       <span>Continue to Your Chats</span>
                       <ArrowRightIcon className="ml-2 h-5 w-5 hidden group-hover:block" />
                     </Button>
@@ -116,117 +122,51 @@ export default async function Home() {
                 )}
               </div>
             ) : (
-              <Link href="/sign-in">
-                <Button className="w-full bg-blue-600/50 hover:bg-blue-700 py-6 text-lg">
-                  Get Started Free
-                  <LogInIcon className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <div className="inline-flex items-center rounded-lg border border-violet-500/20 bg-violet-500/10 px-6 py-3 shadow-xl relative ">
+                <Link href="/sign-in">
+                  <Image
+                    alt="rozz chat to pdf"
+                    src="/rozz.webp"
+                    width={420}
+                    height={420}
+                    className="bg-cover opacity-80 rounded-lg "
+                  />
+                  <Button className="w-full bg-violet-500/80 hover:bg-violet-600/90 py-6 text-lg font-semibold transition duration-200 ease-in-out absolute bottom-0 right-[0.08rem] z-50">
+                    Get Started Free
+                    <LogInIcon className="ml-2 h-5 w-5 animate-pulse" />
+                  </Button>
+                </Link>
+              </div>
             )}
           </div>
         </div>
       </section>
-
       {/* Stats Section */}
-      <section className="border-y border-gray-800 bg-gray-900/50">
+      <section className="border-y border-gray-300 bg-gray-100/50">
         <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">
+                <div className="text-3xl font-bold text-gray-800 mb-2">
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
+                <div className="text-sm text-gray-600">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="container mx-auto px-4 py-24">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Powerful Features for Document Analysis
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Experience the next generation of document interaction with our
-            advanced AI features
-          </p>
-        </div>
-        <div className="grid gap-8 md:grid-cols-3">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} />
-          ))}
-        </div>
-      </section>
-
       {/* How It Works Section */}
-      <section className="bg-gradient-to-b from-gray-900/50 to-gray-900/30 py-32 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">
-              How It Works
-            </h2>
-            <p className="text-gray-400 max-w-xl mx-auto text-lg">
-              Three simple steps to get started
-            </p>
-          </div>
-          <div className="relative">
-            {/* Animated Connection Lines */}
-            <div className="absolute top-1/2 left-0 w-full h-[2px] -translate-y-1/2 hidden md:block bg-gradient-to-r from-blue-600/20 via-blue-600 to-blue-600/20" />
-
-            <div className="grid gap-12 md:grid-cols-3 relative">
-              {steps.map((step, index) => (
-                <div
-                  key={index}
-                  className="group relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-8 transition-all duration-500 hover:bg-gray-800/60 hover:-translate-y-2"
-                >
-                  {/* Step Number */}
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-                    <div className="relative w-12 h-12">
-                      <div className="absolute inset-0 rounded-full bg-blue-600/20" />
-                      <div className="relative w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-blue-500/20">
-                        {index + 1}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Icon */}
-                  <div className="mt-8 mb-6 mx-auto w-20 h-20 flex items-center justify-center rounded-full bg-blue-500/10 text-blue-500 transition-all duration-500 group-hover:scale-110 relative">
-                    <div className="absolute inset-0 rounded-full bg-blue-500/5" />
-                    <div className="transform transition-transform duration-500 group-hover:rotate-12">
-                      {step.icon}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-xl font-semibold text-white mb-4 transition-colors duration-300 group-hover:text-blue-400">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-400 leading-relaxed transition-colors duration-300 group-hover:text-gray-300">
-                    {step.description}
-                  </p>
-
-                  {/* Decorative Corner Accents */}
-                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-blue-500/30 rounded-tl-lg" />
-                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-blue-500/30 rounded-tr-lg" />
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-blue-500/30 rounded-bl-lg" />
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-blue-500/30 rounded-br-lg" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <HowItWorks />
 
       {/* Testimonials Section */}
       <section className="container mx-auto px-4 py-24">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="uppercase font-bold text-xl mb-8 text-purple-600">
             Trusted by Professionals
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="font-mono font-thin max-w-2xl mx-auto mb-24">
             See what our users have to say about their experience
           </p>
         </div>
@@ -237,44 +177,24 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="container mx-auto px-4 py-24">
-        <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 p-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Transform Your Document Experience?
-          </h2>
-          <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who are already using SakhiAI to
-            revolutionize their document interaction.
-          </p>
-          <Link href="/sign-up">
-            <Button
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100"
-            >
-              Get Started Free
-              <Sparkles className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div>
-      </section>
+      <Pricing />
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 bg-gray-900">
+      <footer className="border-t border-gray-200  border-2 shadow-lg mt-24">
         <div className="container mx-auto px-4 py-12">
           <div className="grid gap-8 md:grid-cols-4">
             <div>
               <Link href="/" className="flex items-center gap-2 mb-4">
-                <Bot className="h-8 w-8 text-blue-500" />
-                <span className="text-xl font-bold text-white">SakhiAI</span>
+                <Bot className="h-8 w-8 text-violet-500" />
+                <span className="text-xl font-bold text-gray-800">SakhiAI</span>
               </Link>
-              <p className="text-gray-400">
+              <p className="text-gray-600">
                 Transform your PDF documents into interactive conversations
               </p>
             </div>
             {footerLinks.map((section, index) => (
               <div key={index}>
-                <h3 className="font-semibold text-white mb-4">
+                <h3 className="font-semibold text-gray-800 mb-4">
                   {section.title}
                 </h3>
                 <ul className="space-y-2">
@@ -282,7 +202,7 @@ export default async function Home() {
                     <li key={linkIndex}>
                       <Link
                         href={link.href}
-                        className="text-gray-400 hover:text-white"
+                        className="text-gray-600 hover:text-gray-800"
                       >
                         {link.label}
                       </Link>
@@ -309,10 +229,10 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/50 p-6 transition-all hover:border-blue-500/50 hover:bg-gray-900">
-      <div className="mb-4 rounded-lg bg-blue-500/10 p-3 w-fit">{icon}</div>
-      <h3 className="mb-2 text-xl font-semibold text-white">{title}</h3>
-      <p className="text-gray-400">{description}</p>
+    <div className="rounded-xl border border-gray-300 bg-gray-100/50 p-6 transition-all hover:border-violet-500/50 hover:bg-gray-100">
+      <div className="mb-4 rounded-lg bg-violet-500/10 p-3 w-fit">{icon}</div>
+      <h3 className="mb-2 text-xl font-semibold text-gray-800">{title}</h3>
+      <p className="text-gray-600">{description}</p>
     </div>
   );
 }
@@ -329,8 +249,8 @@ function TestimonialCard({
   avatar: string;
 }) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/50 p-6">
-      <p className="text-gray-400 mb-6">{content}</p>
+    <div className="rounded-xl border border-gray-300 bg-gray-100/50 p-6">
+      <p className="text-gray-600 mb-6">{content}</p>
       <div className="flex items-center gap-4">
         <Image
           src={avatar}
@@ -340,8 +260,8 @@ function TestimonialCard({
           className="rounded-full"
         />
         <div>
-          <div className="font-semibold text-white">{name}</div>
-          <div className="text-sm text-gray-400">{role}</div>
+          <div className="font-semibold text-gray-800">{name}</div>
+          <div className="text-sm text-gray-600">{role}</div>
         </div>
       </div>
     </div>
@@ -357,18 +277,18 @@ const stats = [
 
 const features = [
   {
-    icon: <Brain className="h-6 w-6 text-blue-500" />,
+    icon: <Brain className="h-6 w-6 text-violet-500" />,
     title: "AI-Powered Chat",
     description:
       "Natural conversations with your documents using advanced AI technology.",
   },
   {
-    icon: <Lock className="h-6 w-6 text-blue-500" />,
+    icon: <Lock className="h-6 w-6 text-violet-500" />,
     title: "Secure & Private",
     description: "Enterprise-grade security for your sensitive documents.",
   },
   {
-    icon: <Clock className="h-6 w-6 text-blue-500" />,
+    icon: <Clock className="h-6 w-6 text-violet-500" />,
     title: "24/7 Access",
     description: "Access your documents anytime, anywhere.",
   },

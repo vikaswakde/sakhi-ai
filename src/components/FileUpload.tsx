@@ -63,11 +63,11 @@ const FileUpload = () => {
     },
   });
   return (
-    <div className="p-2 bg-white rounded-xl">
+    <div className="flex items-center  border border-violet-500/20 bg-violet-500/10 px-4 py-3 shadow-xl rounded-lg">
       <div
         {...getRootProps({
           className:
-            "border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col",
+            "border-dashed border-2 border-gray-400 rounded-xl cursor-pointer  py-8 flex justify-center items-center flex-col w-full bg-white/50 text-purple-700 hover:bg-purple-100 transition duration-300 ease-in-out  shadow-lg",
         })}
       >
         <input {...getInputProps()} />
@@ -81,8 +81,10 @@ const FileUpload = () => {
           </>
         ) : (
           <>
-            <Inbox className="w-10 h-10 text-blue-500" />
-            <p className="mt-2 text-sm text-slate-400">Drop PDF Here</p>
+            <Inbox className="w-10 h-10 text-blue-500 " />
+            <p className="mt-2 text-sm text-slate-400 transition-colors">
+              Drop PDF Here
+            </p>
           </>
         )}
       </div>
