@@ -100,7 +100,7 @@ const Pricing = async (props: Props) => {
                               href={isAuth ? "/chat" : "/sign-up"}
                               className="flex gap-1 items-center"
                             >
-                              Get MazaSathi
+                              Get SakhiAI
                               <ArrowRight
                                 size={22}
                                 className="animate-pulse transition-colors ml-1"

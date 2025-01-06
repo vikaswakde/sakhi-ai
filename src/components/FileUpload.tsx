@@ -67,7 +67,7 @@ const FileUpload = () => {
       <div
         {...getRootProps({
           className:
-            "border-dashed border-2 border-gray-400 rounded-xl cursor-pointer  py-8 flex justify-center items-center flex-col w-full bg-white/50 text-purple-700 hover:bg-purple-100 transition duration-300 ease-in-out  shadow-lg",
+            "border-dashed border-2 border-gray-400 rounded-xl cursor-pointer  py-8 flex justify-center items-center flex-col w-full bg-white/50 text-purple-700 hover:bg-purple-100 transition duration-300 ease-in-out  shadow-lg relative h-[10rem]",
         })}
       >
         <input {...getInputProps()} />
@@ -75,9 +75,17 @@ const FileUpload = () => {
           <>
             {/* loading state */}
             <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-            <p className="mt-2 text-sm text-slate-400">
-              Sending your file to GPT 🤖...
+            <p className="text-2xl text-black   z-50 font-extrabold">
+              AI is reading...{" "}
+              <span className="text-3xl font-extrabold">🤫</span>
             </p>
+            <div className="mt-2 text-center">
+              <img
+                src="/robo-reading.gif"
+                alt="Loading GIF"
+                className="mt-2 w-full h-full absolute bottom-0 left-0 rounded-lg z-0 opacity-60"
+              />
+            </div>
           </>
         ) : (
           <>
