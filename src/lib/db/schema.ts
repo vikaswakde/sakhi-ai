@@ -34,12 +34,8 @@ export const messages = pgTable("messages", {
 export const userSubscriptions = pgTable("user_subscriptions", {
   id: serial("id").primaryKey(),
   userId: varchar("user_id", { length: 256 }).notNull().unique(),
-  stripeCustomerId: varchar("stripe_customer_id", { length: 256 })
-    .notNull()
-    .unique(),
-  stripeSubscriptionId: varchar("stripe_subscription_id", {
-    length: 256,
-  }),
-  stripePriceId: varchar("stripe_price_id", { length: 256 }),
+  razorpaySubscriptionId: text("razorpay_subscription_id"),
+  razorpayPaymentId: text("razorpay_payment_id"),
+  razorpayOrderId: text("razorpay_order_id"),
   stripeCurrentPeriodEnd: timestamp("stripe_current_period_ended_at"),
 });

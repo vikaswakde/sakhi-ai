@@ -105,7 +105,7 @@ export default function TermsPage() {
               <p className="text-gray-300">
                 For support, refunds, or privacy concerns, contact us at:
                 <br />
-                Email: support@sakhiai.com
+                Email: vikaswakdepc@gmail.com
                 <br />
                 Response time: Within 24 hours
               </p>
@@ -126,7 +126,7 @@ export default function TermsPage() {
             <p className="text-gray-300">
               For general inquiries and support:
               <br />
-              Email: contact@sakhiai.com
+              Email: vikaswakdepc@gmail.com
               <br />
               Office Hours: Monday-Friday, 9 AM - 6 PM EST
             </p>
