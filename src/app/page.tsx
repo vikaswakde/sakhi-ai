@@ -1,33 +1,26 @@
-import { Button } from "@/components/ui/button";
-import { auth } from "@clerk/nextjs/server";
-import Link from "next/link";
 import FileUpload from "@/components/FileUpload";
-import { UserButton } from "@clerk/nextjs";
+import HowItWorks from "@/components/home/HowItWorks";
+import Pricing from "@/components/home/Pricing";
+import SubscriptionButton from "@/components/SubscriptionButton";
+import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
+import { checkSubscription } from "@/lib/subscription";
+import { UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import {
   ArrowRightIcon,
-  LogInIcon,
   Bot,
-  FileText,
-  Zap,
-  CheckCircle2,
   Brain,
-  Search,
-  Lock,
-  Sparkles,
-  BarChart,
   Clock,
-  Users,
-  Loader2,
+  FileText,
+  Lock,
+  LogInIcon,
+  Sparkles,
 } from "lucide-react";
-import { eq } from "drizzle-orm";
-import SubscriptionButton from "@/components/SubscriptionButton";
-import { checkSubscription } from "@/lib/subscription";
 import Image from "next/image";
-import HowItWorks from "@/components/home/HowItWorks";
-import Hero from "@/components/home/Hero";
-import Pricing from "@/components/home/Pricing";
+import Link from "next/link";
 
 export default async function Home() {
   const { userId } = await auth();
