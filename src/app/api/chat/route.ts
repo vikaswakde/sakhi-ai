@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
     // Check if messages length exceeds 10 and user is not subscribed
     if (messages.length > 14) {
-      const isPro = await checkSubscription();
+      const { isSubscribed: isPro } = await checkSubscription();
       if (!isPro) {
         const stream = new ReadableStream({
           start(controller) {

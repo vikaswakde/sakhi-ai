@@ -12,7 +12,7 @@ type Props = {};
 const Pricing = async (props: Props) => {
   const { userId } = await auth();
   const isAuth = !!userId;
-  const isPro = await checkSubscription();
+  const {isSubscribed: isPro} = await checkSubscription();
   const plansMap = [
     {
       id: "free",

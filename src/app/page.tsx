@@ -25,7 +25,7 @@ import Link from "next/link";
 export default async function Home() {
   const { userId } = await auth();
   const isAuth = !!userId;
-  const isPro = await checkSubscription();
+  const { isSubscribed } = await checkSubscription();
   let firstChat = userId
     ? (await db.select().from(chats).where(eq(chats.userId, userId)))[0]
     : null;
@@ -42,7 +42,7 @@ export default async function Home() {
           <div className="flex items-center gap-4">
             {isAuth ? (
               <>
-                <SubscriptionButton isPro={isPro} />
+                <SubscriptionButton isPro={isSubscribed} />
                 <UserButton />
               </>
             ) : (
@@ -94,7 +94,7 @@ export default async function Home() {
           <div className="mx-auto max-w-lg">
             {isAuth ? (
               <div className="space-y-6">
-                {!firstChat || isPro ? (
+                {!firstChat || isSubscribed ? (
                   <FileUpload />
                 ) : (
                   <div className="text-center p-6 bg-yellow-100 rounded-lg border border-yellow-300 shadow-md">
@@ -102,7 +102,7 @@ export default async function Home() {
                       You have reached the limit for free accounts. Please
                       upgrade to Pro to upload more PDFs.
                     </p>
-                    <SubscriptionButton isPro={isPro} />
+                    <SubscriptionButton isPro={isSubscribed} />
                   </div>
                 )}
                 {firstChat && (

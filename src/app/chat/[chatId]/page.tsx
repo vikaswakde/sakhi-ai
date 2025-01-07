@@ -32,18 +32,18 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   }
 
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
-  const isPro = await checkSubscription();
+  const {isSubscribed} = await checkSubscription();
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
       <MobileSidebarToggle />
 
       {/* Mobile Sidebar */}
-      <MobileSidebar chatId={parseInt(chatId)} chats={_chats} isPro={isPro} />
+      <MobileSidebar chatId={parseInt(chatId)} chats={_chats} isPro={isSubscribed} />
 
       {/* Desktop Sidebar */}
       <div className="hidden md:block w-80 min-h-screen bg-gray-900 border-r border-gray-800">
-        <ChatSideBar chatId={parseInt(chatId)} chats={_chats} isPro={isPro} />
+        <ChatSideBar chatId={parseInt(chatId)} chats={_chats} isPro={isSubscribed} />
       </div>
 
       {/* Main Content Area */}
