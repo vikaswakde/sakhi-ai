@@ -36,6 +36,5 @@ export const userSubscriptions = pgTable("user_subscriptions", {
   userId: varchar("user_id", { length: 256 }).notNull().unique(),
   razorpaySubscriptionId: text("razorpay_subscription_id"),
   razorpayPaymentId: text("razorpay_payment_id"),
-  razorpayOrderId: text("razorpay_order_id"),
   stripeCurrentPeriodEnd: timestamp("stripe_current_period_ended_at"),
 });
