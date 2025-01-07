@@ -84,24 +84,29 @@ export async function POST(req: Request) {
         }
         controller.close();
 
-        await db.insert(_messages).values({
-          chatId,
-          content: lastMessage.content,
-          role: "user",
-        });
+        try {
+          await db.insert(_messages).values({
+            chatId,
+            content: lastMessage.content,
+            role: "user",
+          });
 
-        await db.insert(_messages).values({
-          chatId,
-          content: fullResponse,
-          role: "system",
-        });
+          await db.insert(_messages).values({
+            chatId,
+            content: fullResponse,
+            role: "system",
+          });
+        } catch (dbError) {
+          console.error("Database insert error:", dbError);
+          controller.enqueue("Error saving messages to the database.");
+        }
       },
     });
 
-    console.log("this is stream", stream);
+    // console.log("this is stream", stream);
     return new StreamingTextResponse(stream);
   } catch (error) {
     console.error("Gemini API Error", error);
-    return NextResponse.json({ error: "An Error occured" }, { status: 500 });
+    return NextResponse.json({ error: "An Error occurred" }, { status: 500 });
   }
 }
