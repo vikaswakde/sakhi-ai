@@ -4,6 +4,7 @@ import crypto from "crypto";
 import { db } from "@/lib/db";
 import { userSubscriptions } from "@/lib/db/schema";
 import { razorpay } from "@/lib/razorpay";
+import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
   try {
@@ -24,7 +25,6 @@ export async function POST(req: Request) {
       .update(`${razorpay_payment_id}|${razorpay_subscription_id}`)
       .digest("hex");
 
-
     const isAuthentic = generatedSignature === razorpay_signature;
 
     if (!isAuthentic) {
@@ -37,13 +37,16 @@ export async function POST(req: Request) {
     }
 
     // Update Subscription in Database
-    await db.insert(userSubscriptions).values({
-      userId,
-      razorpayPaymentId: razorpay_payment_id,
-      razorpaySubscriptionId: razorpay_subscription_id,
-      // Set subscription end date to 1 month from now
-      stripeCurrentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-    });
+    await db
+      .update(userSubscriptions)
+      .set({
+        userId,
+        razorpayPaymentId: razorpay_payment_id,
+        razorpaySubscriptionId: razorpay_subscription_id,
+        // Set subscription end date to 1 month from now
+        stripeCurrentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      })
+      .where(eq(userSubscriptions.userId, userId));
 
     return NextResponse.json({
       message: "Subscription activated successfully",

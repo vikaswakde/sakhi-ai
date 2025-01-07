@@ -1,6 +1,10 @@
+import { db } from "@/lib/db";
+import { userSubscriptions } from "@/lib/db/schema";
 import { razorpay } from "@/lib/razorpay";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+
 export const dynamic = "force-dynamic";
 
 export async function GET() {
@@ -10,6 +14,20 @@ export async function GET() {
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    // Check if the user already has a subscription
+    const existingSubscription = await db
+      .select()
+      .from(userSubscriptions)
+      .where(eq(userSubscriptions.userId, userId))
+      .then((res) => res[0]);
+
+    if (existingSubscription) {
+      // IF a subscirption exists, you might want to return an error or update it
+      return new NextResponse("User already has an acitve subscription", {
+        status: 400,
+      });
     }
 
     // Create a Razorpay Subscription Plan if not exists
@@ -32,6 +50,13 @@ export async function GET() {
       notes: {
         userId: userId,
       },
+    });
+
+    // Insert the subscription into the Database
+    await db.insert(userSubscriptions).values({
+      userId,
+      razorpaySubscriptionId: subscription.id,
+      stripeCurrentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // Set the period end date
     });
 
     return NextResponse.json({
