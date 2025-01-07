@@ -109,9 +109,8 @@ export default async function BillingPage() {
                     <CancelSubscriptionButton />
                   )}
                 {subscription.status !== "active" && (
-                  <Link href="/api/razorpay" className="inline-flex">
-                    <Button variant="default">Reactivate Subscription</Button>
-                  </Link>
+                  // <Button variant="default">Subscription InActive</Button>
+                  <Badge variant="destructive">Inactive</Badge>
                 )}
               </div>
             </>
