@@ -12,25 +12,24 @@ export async function GET() {
     const { userId } = await auth();
     const user = await currentUser();
 
-    if (!userId) {
+    if (!userId || !user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Check if the user already has a subscription
+    // Check existing subscription
     const existingSubscription = await db
       .select()
       .from(userSubscriptions)
       .where(eq(userSubscriptions.userId, userId))
       .then((res) => res[0]);
 
-    if (existingSubscription) {
-      // IF a subscirption exists, you might want to return an error or update it
-      return new NextResponse("User already has an acitve subscription", {
+    if (existingSubscription?.status === "active") {
+      return new NextResponse("User already has an active subscription", {
         status: 400,
       });
     }
 
-    // Create a Razorpay Subscription Plan if not exists
+    // Create a plan
     const plan = await razorpay.plans.create({
       period: "monthly",
       interval: 1,
@@ -38,26 +37,52 @@ export async function GET() {
         name: "Sakhi AI Pro",
         amount: 1500 * 100,
         currency: "INR",
-        description: "Montly subscription for Sakhi AI Pro",
+        description: "Monthly subscription for Sakhi AI Pro",
       },
     });
 
-    // Create a Subscription
+    // Create subscription
     const subscription = await razorpay.subscriptions.create({
       plan_id: plan.id,
       customer_notify: 1,
-      total_count: 12, // number of billing cycles
+      total_count: 12,
       notes: {
         userId: userId,
+        name: user.firstName + " " + user.lastName,
+        email: user.emailAddresses[0].emailAddress,
       },
     });
 
-    // Insert the subscription into the Database
-    await db.insert(userSubscriptions).values({
-      userId,
-      razorpaySubscriptionId: subscription.id,
-      stripeCurrentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // Set the period end date
-    });
+    // Create or update subscription record
+    await db
+      .insert(userSubscriptions)
+      .values({
+        userId,
+        razorpaySubscriptionId: subscription.id,
+        razorpayPlanId: plan.id,
+        status: subscription.status,
+        currentPeriodStart: subscription.current_start
+          ? new Date(subscription.current_start * 1000)
+          : null,
+        currentPeriodEnd: subscription.current_end
+          ? new Date(subscription.current_end * 1000)
+          : null,
+      })
+      .onConflictDoUpdate({
+        target: [userSubscriptions.userId],
+        set: {
+          razorpaySubscriptionId: subscription.id,
+          razorpayPlanId: plan.id,
+          status: subscription.status,
+          currentPeriodStart: subscription.current_start
+            ? new Date(subscription.current_start * 1000)
+            : null,
+          currentPeriodEnd: subscription.current_end
+            ? new Date(subscription.current_end * 1000)
+            : null,
+          updatedAt: new Date(),
+        },
+      });
 
     return NextResponse.json({
       subscriptionId: subscription.id,
@@ -66,7 +91,7 @@ export async function GET() {
       keyId: process.env.RAZORPAY_KEY_ID,
     });
   } catch (error) {
-    console.log("Razorpay error", error);
+    console.error("Razorpay error:", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

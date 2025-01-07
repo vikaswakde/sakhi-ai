@@ -1,4 +1,5 @@
 import {
+  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -7,6 +8,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { razorpay } from "../razorpay";
 
 export const userSystemEnum = pgEnum("user_system_enum", ["system", "user"]);
 
@@ -34,7 +36,18 @@ export const messages = pgTable("messages", {
 export const userSubscriptions = pgTable("user_subscriptions", {
   id: serial("id").primaryKey(),
   userId: varchar("user_id", { length: 256 }).notNull().unique(),
-  razorpaySubscriptionId: text("razorpay_subscription_id"),
-  razorpayPaymentId: text("razorpay_payment_id"),
-  stripeCurrentPeriodEnd: timestamp("stripe_current_period_ended_at"),
+
+  // Razorpay specific fields
+  razorpaySubscriptionId: text("razorpay_subscription_id").unique(),
+  razorpayPlanId: text("razorpay_plan_id"),
+
+  // Subscription status tracking
+  status: varchar("status", { length: 50 }).notNull().default("inactive"),
+  currentPeriodStart: timestamp("current_period_start"),
+  currentPeriodEnd: timestamp("current_period_end"),
+  cancelAtPeriodEnd: boolean("cancel_at_period_end").default(false),
+
+  // Audit fields
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

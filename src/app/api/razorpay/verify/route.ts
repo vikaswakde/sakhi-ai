@@ -19,32 +19,36 @@ export async function POST(req: Request) {
       razorpay_signature,
     } = await req.json();
 
-    // Construct the string to verify
+    // Verify signature
     const generatedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_SECRET_KEY!)
       .update(`${razorpay_payment_id}|${razorpay_subscription_id}`)
       .digest("hex");
 
-    const isAuthentic = generatedSignature === razorpay_signature;
-
-    if (!isAuthentic) {
-      console.log("Generated:", generatedSignature);
-      console.log("Received:", razorpay_signature);
+    if (generatedSignature !== razorpay_signature) {
       return NextResponse.json(
         { message: "Invalid signature" },
         { status: 400 }
       );
     }
 
-    // Update Subscription in Database
+    // Get subscription details from Razorpay
+    const subscription = await razorpay.subscriptions.fetch(
+      razorpay_subscription_id
+    );
+
+    // Update subscription in database
     await db
       .update(userSubscriptions)
       .set({
-        userId,
-        razorpayPaymentId: razorpay_payment_id,
-        razorpaySubscriptionId: razorpay_subscription_id,
-        // Set subscription end date to 1 month from now
-        stripeCurrentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        status: subscription.status,
+        currentPeriodStart: subscription.current_start
+          ? new Date(subscription.current_start * 1000)
+          : null,
+        currentPeriodEnd: subscription.current_end
+          ? new Date(subscription.current_end * 1000)
+          : null,
+        updatedAt: new Date(),
       })
       .where(eq(userSubscriptions.userId, userId));
 

@@ -12,7 +12,6 @@ export async function POST() {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Get Subscription from Database
     const subscription = await db
       .select()
       .from(userSubscriptions)
@@ -20,24 +19,29 @@ export async function POST() {
       .then((res) => res[0]);
 
     if (!subscription?.razorpaySubscriptionId) {
-      return new NextResponse("No Active Subscription", { status: 400 });
+      return new NextResponse("No active subscription", { status: 400 });
     }
 
-    //   Cancel Subscription in Razorpay
-    await razorpay.subscriptions.cancel(subscription.razorpaySubscriptionId);
+    // Cancel in Razorpay
+    const razorpaySubscription = await razorpay.subscriptions.cancel(
+      subscription.razorpaySubscriptionId
+    );
 
-    // Update the Database
+    // Update database
     await db
       .update(userSubscriptions)
       .set({
-        stripeCurrentPeriodEnd: new Date(), // End subscription Immediately
+        status: razorpaySubscription.status,
+        cancelAtPeriodEnd: true,
+        updatedAt: new Date(),
       })
       .where(eq(userSubscriptions.userId, userId));
 
     return NextResponse.json({
-      messages: "Subscription Cancelled successfully",
+      message: "Subscription cancelled successfully",
     });
   } catch (error) {
+    console.error("Cancellation error:", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
