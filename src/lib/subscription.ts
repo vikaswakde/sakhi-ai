@@ -44,7 +44,7 @@ export const checkSubscription = async () => {
   // If Razorpay subscription ID does not exist, check the local period end date
 
   const isValid =
-    userSubscription.razorpaySubscriptionId &&
+    userSubscription.razorpayPaymentId &&
     //  If withGracePeriod > today, subscription is valid
     userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
       Date.now();
