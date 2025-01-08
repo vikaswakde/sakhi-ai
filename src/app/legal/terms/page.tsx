@@ -36,8 +36,6 @@ export default function TermsPage() {
               <br />
               - Pro subscription: [$20/month] : Monthly or annual billing with
               unlimited PDFs
-              <br />- Enterprise: Custom solutions available for large
-              organizations
             </p>{" "}
           </div>
         </div>
